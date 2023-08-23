@@ -1,2 +1,4 @@
 # Crypto-Portfolio-Tracker
-Web App to track your crypto portfolio.
+Web App created with React, bootstrap, MongoDB to track crypto assets price index.
+
+
