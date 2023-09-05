@@ -9,3 +9,23 @@
     font-size: 250%;
     
 }
+
+.select {
+    
+        color: black;
+        cursor: pointer;
+        
+      
+}
+
+.register-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.select:hover {
+    color: blue;
+    text-decoration: underline blue;
+
+  }
+

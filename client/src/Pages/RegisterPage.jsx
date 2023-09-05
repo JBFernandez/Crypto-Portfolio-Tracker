@@ -1,12 +1,14 @@
 import React from 'react'
 import '../Pages/loginPage.css'
+import { Link } from "react-router-dom";
+
 
 export const RegisterPage = () => {
   return (
       
     <div className='login-container'  >
 
-        <h1 id='title' className="badge text-bg-primary w-100" >
+        <h1 id='title' className="badge text-bg alert alert-dark w-100" >
           Register
         </h1>
         <form  className='form'>
@@ -31,6 +33,10 @@ export const RegisterPage = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
         </form>
+
+        <div className='register-container' style={{paddingTop:"5%"}} >
+          <div >Already have an account  </div> <Link style={{paddingLeft:"1%"}} to={"/login"} > Login </Link>
+        </div>
 
     </div>
 
