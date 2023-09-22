@@ -1,13 +1,14 @@
 import React from 'react'
 
-export const CryptoAsset = () => {
+export const CryptoAsset = ( {asset} ) => {
+
   return (
-    <div>
+    <>
         <ul className="list-group list-group-horizontal justify-content-md-center"  >
-          <li className="list-group-item  col-2">#</li>
-          <li className="list-group-item col-4">Name</li>
-          <li className="list-group-item col-4">Price</li>
+          <li className="list-group-item  col-2"> { asset.number } </li>
+          <li className="list-group-item col-4"> { asset.name } </li>
+          <li className="list-group-item col-4">{ asset.price }</li>
         </ul>
-    </div>
+    </>
   )
 }
