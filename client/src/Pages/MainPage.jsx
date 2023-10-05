@@ -3,17 +3,19 @@ import { Link, useNavigate } from 'react-router-dom'
 import { CryptoAsset } from '../components/CryptoAsset'
 import { NavBar } from '../components/NavBar'
 import "../Pages/mainPage.css";
-import { getAssets } from '../hooks/getAssets';
+import { useFetchAssets } from '../hooks/useFetchAssets';
 
 export const MainPage = () => {
 
 
   
-  const assets = getAssets(1); 
+  const assets = useFetchAssets(1);
+  
   
 
 
   const coinGecko = (e) => {
+    
     e.preventDefault();
 
     const url =  window.location.href = "https://www.coingecko.com/"
@@ -41,7 +43,7 @@ export const MainPage = () => {
 
         
         {
-        assets.map( asset => {
+        assets.coins.map( asset => {
           return <CryptoAsset key={asset.number} asset={asset} />
         } ) }
 
