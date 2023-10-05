@@ -10,6 +10,8 @@ export const MainPage = () => {
 
   
   const assets = useFetchAssets(1);
+
+  console.log( assets.coins );
   
   
 
@@ -42,10 +44,10 @@ export const MainPage = () => {
         {/* <CryptoAsset /> */}
 
         
-        {
+        {/* {
         assets.coins.map( asset => {
           return <CryptoAsset key={asset.number} asset={asset} />
-        } ) }
+        } ) } */}
 
 
 
