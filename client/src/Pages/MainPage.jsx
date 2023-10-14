@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { CryptoAsset } from '../components/CryptoAsset'
 import { NavBar } from '../components/NavBar'
 import "../Pages/mainPage.css";
-import { useFetchAssets } from '../hooks/useFetchAssets';
+import { useFetchAssets } from '../hooks/useFetchAssets2';
 
 export const MainPage = () => {
 
@@ -11,16 +11,16 @@ export const MainPage = () => {
   
   const assets = useFetchAssets(1);
 
-  console.log( assets.coins );
+  console.log( assets );
   
   
 
 
-  const coinGecko = (e) => {
+  const coinMarketCap = (e) => {
     
     e.preventDefault();
 
-    const url =  window.location.href = "https://www.coingecko.com/"
+    const url =  window.location.href = "https://coinmarketcap.com/"
 
   }
 
@@ -30,12 +30,14 @@ export const MainPage = () => {
 
         <NavBar />
 
-         <p> Data provided by &nbsp;</p> <p className='coinGecko'   onClick={ coinGecko } >CoinGecko </p>
+         <p> Data provided by &nbsp;</p> <p className='coinGecko'   onClick={ coinMarketCap } >CoinMarketCap </p>
 
         <ul className="list-group list-group-horizontal justify-content-md-center" style={{paddingTop:"5%"}} >
           <li className="list-group-item  col-2">#</li>
-          <li className="list-group-item col-4">Name</li>
-          <li className="list-group-item col-4">Price</li>
+          <li className="list-group-item col-2">Name</li>
+          <li className="list-group-item col-2">Price (USD)</li>
+          <li className="list-group-item col-2">Quantity</li>
+          <li className="list-group-item col-2">Add</li>
         </ul>
 
         
@@ -43,11 +45,13 @@ export const MainPage = () => {
         {/* <CryptoAsset number={ one.number } name={one.name} price={ one.price } /> */}
         {/* <CryptoAsset /> */}
 
-        
-        {/* {
+        { assets.loading && <p className="alert alert-dark text-center " role="alert" > Loading... </p> }
+
+      
+        {
         assets.coins.map( asset => {
           return <CryptoAsset key={asset.number} asset={asset} />
-        } ) } */}
+        } ) }
 
 
 

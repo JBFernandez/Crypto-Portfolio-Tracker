@@ -1,6 +1,6 @@
 import axios from "axios";
 
 
-export const coinGeckoApi = axios.create({
-    baseURL:"https://api.coingecko.com/api/v3/",
+export const coinMarketCapApi = axios.create({
+    baseURL:"http://127.0.0.1:4000",
     });

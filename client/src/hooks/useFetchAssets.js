@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { coinGeckoApi } from "../helpers/api";
+import { coinMarketCapApi } from "../helpers/api";
 
 
 export const useFetchAssets = (load) => {
@@ -8,36 +8,38 @@ export const useFetchAssets = (load) => {
 
     const getAsset = async() => {
         try {
-            const {data} = await coinGeckoApi.get("/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&locale=en&precision=5");
+            const {data} = await coinMarketCapApi.post("/coinmarketcap/", {
+                data: { "limit": "10" }
+            });
     
 
         let number = 1;
 
-        const assets = data.map( coin => {
-        return {
-            number: number++,
-            id: coin.id,
-            name: coin.name,
-            symbol: coin.symbol,
-            price: coin.current_price,
-            }
-        } )
-        console.log(assets);
-        return assets;
+        // const assets = data.map( coin => {
+        // return {
+        //     number: number++,
+        //     id: coin.id,
+        //     name: coin.name,
+        //     symbol: coin.symbol,
+        //     price: coin.current_price,
+        //     }
+        // } )
+        console.log(data);
+        // return assets;
         } catch (error) {
         }
     }
 
     useEffect(() => {
 
-        getAsset(1).then( resp => {
-            setAssets({
-                coins: resp,
-                loading: false
-            })
-        } ).catch( error => {
-            console.log(error);
-        } );
+        // getAsset(1).then( resp => {
+        //     setAssets({
+        //         coins: resp,
+        //         loading: false
+        //     })
+        // } ).catch( error => {
+        //     console.log(error);
+        // } );
     
       
     }, [load])
@@ -46,6 +48,6 @@ export const useFetchAssets = (load) => {
     
 
 
-    return assets
+    // return assets
 
 }

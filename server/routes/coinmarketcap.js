@@ -5,12 +5,13 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.get('/', ( req, resp ) => {
+router.post('/', ( req, resp ) => {
 
     const assets = new Promise(async (resolve, reject) => {
         let response = null;
+        console.log(req.body.data.limit);
         try {
-            response = await axios.get(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=${req.body.limit}`, {
+            response = await axios.get(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=${req.body.data.limit}`, {
             headers: {
                 'X-CMC_PRO_API_KEY': process.env.APIKEY,
             },
