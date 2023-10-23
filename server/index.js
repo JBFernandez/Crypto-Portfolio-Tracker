@@ -13,6 +13,7 @@ app.use( cors() );
 app.use(express.json());
 
 app.use('/auth', require('./routes/auth'));
+app.use('/main', require('./routes/asset'));
 
 
 app.get('/', ( req, resp ) => {

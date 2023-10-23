@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const User = require('../models/User');
 const CryptoAsset = require('../models/CryptoAsset');
+const bcrypt = require('bcryptjs');
 
 const router = Router();
 
@@ -9,6 +10,9 @@ router.post('/register', async( req, resp ) => {
 
 
     const { name, email, password }  = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const userPassword = bcrypt.hashSync( password, salt );
+
 
     try {
 
@@ -24,7 +28,7 @@ router.post('/register', async( req, resp ) => {
        user = new User( {
             name: name,
             email: email,
-            password: password
+            password: userPassword
        } );
 
         let saved = await user.save();
@@ -57,7 +61,7 @@ router.post('/login', async( req, resp ) => {
             })
         }
 
-        if ( user.password == req.body.password ) {
+        if ( bcrypt.compareSync( req.body.password, user.password ) ) {
             return resp.status(200).json({
                 token: "xxxx",
                 ok: true,
@@ -77,47 +81,7 @@ router.post('/login', async( req, resp ) => {
         })
     }
 
-} )
-
-router.post('/main', async( req, resp ) => {
-
-    try {
-        let asset = await CryptoAsset.findOne({ id: req.body.id });
-
-        if (asset) {
-            return resp.status(400).json({
-                ok: false,
-                message: "You already have this asset in your portfolio, edit in Portfolio tab"
-            })
-        }
-
-        asset = new CryptoAsset( req.body );
-
-        await asset.save();
-
-
-
-
-        return resp.status(200).json({
-            asset: asset
-        })
-        
-    } catch (error) {
-        console.log(error);
-
-        resp.status(500).json({
-            message: "contact admin"
-        })
-    }
-
-
-
-    
-
-    
-
-
-}  );
-
+} );
 
 module.exports = router;
+
