@@ -9,6 +9,7 @@ export const CryptoAsset = ( {asset} ) => {
   });
   const [portfolioAsset, setPortfolioAsset] = useState({
     id: "",
+    userId: "",
     name: "",
     price:"",
     symbol:"",

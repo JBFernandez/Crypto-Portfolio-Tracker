@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import '../Pages/loginPage.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from '../hooks/useForm';
+import { useSelector, useDispatch } from 'react-redux'
+import { OnChecking, onLogin } from '../store/authSlice';
+import { useAuthStore } from '../hooks/useAuthStore';
+import Swal from 'sweetalert2';
+
 
 const initialForm = {
   name: "",
@@ -13,11 +18,19 @@ const initialForm = {
 
 export const RegisterPage = () => {
 
+
   const { form, handleChange }  = useForm(initialForm);
+  const dispatch = useDispatch();
+
+
+  const { status, user, startRegister } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      console.log(form);
+
+    startRegister( form.name, form.email, form.password  );
+
+
   }
 
   
