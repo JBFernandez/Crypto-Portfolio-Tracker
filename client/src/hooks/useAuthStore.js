@@ -22,9 +22,10 @@ export const useAuthStore = () => {
                 password: password
             })
 
+
             // localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime() );
-            dispatch( onLogin(data) );
+            dispatch( onLogin(data.resp) );
             Swal.fire({
               icon: 'success',
               title: 'Welcome',
@@ -50,6 +51,51 @@ export const useAuthStore = () => {
         }
 
     }
+
+    const startLogin = async( email, password ) => {
+
+        dispatch(OnChecking());
+
+        try {
+
+            const {data} = await dbApi.post('/auth/login', {
+                email: email,
+                password: password
+            } );
+
+            localStorage.setItem( 'Token', data.token );
+
+            console.log(data);
+
+            dispatch( onLogin( data ) );
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Welcome',
+                text: user.name,
+                timer: 1500
+              })
+
+              setTimeout( () => {
+                navigate('/main', { replace: true });
+
+              }, 1600 );
+
+            
+        } catch (error) {
+
+            console.log( error );
+            dispatch( onLogout( error.response.data ) );
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              })
+            
+        }        
+    }
+
+
     
 
     return {
@@ -58,7 +104,8 @@ export const useAuthStore = () => {
         user,
 
         //funciones
-        startRegister
+        startRegister,
+        startLogin
     }
 
 }

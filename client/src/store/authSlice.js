@@ -1,4 +1,4 @@
-import {createSlice, configureStore } from "@reduxjs/toolkit";
+import {createSlice } from "@reduxjs/toolkit";
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -17,8 +17,8 @@ export const authSlice = createSlice({
            onLogin: ( state, { payload } ) => {
             state.status = 'authenticated';
             state.user = {
-              name: payload.resp.name,
-              id: payload.resp._id
+              name: payload.name,
+              id: payload.id || payload._id
             };
             state.errorMessage = undefined;
            },

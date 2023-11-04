@@ -2,6 +2,7 @@ const { Router } = require('express');
 const User = require('../models/User');
 const CryptoAsset = require('../models/CryptoAsset');
 const bcrypt = require('bcryptjs');
+const { generateJwt } = require('../helpers/generateJwt');
 
 const router = Router();
 
@@ -54,6 +55,7 @@ router.post('/login', async( req, resp ) => {
         let user = await User.findOne({ email: req.body.email });
 
 
+
         if (!user) {
             return resp.status(200).json({
                 ok: false,
@@ -61,11 +63,14 @@ router.post('/login', async( req, resp ) => {
             })
         }
 
+        const token = await generateJwt("afkajsdkl8923848", "cocorock");
+
         if ( bcrypt.compareSync( req.body.password, user.password ) ) {
             return resp.status(200).json({
-                token: "xxxx",
+                token: token,
                 ok: true,
-                id: resp._id
+                id: user._id,
+                name: user.name
             })
         } else {
             return resp.status(400).json({

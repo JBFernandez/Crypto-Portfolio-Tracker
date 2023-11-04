@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from '../hooks/useForm'
+import { useSelector, useStore } from 'react-redux';
+import { dbApi } from '../helpers/dbApi';
+import Swal from "sweetalert2";
+
 
 export const CryptoAsset = ( {asset} ) => {
+
+  const {user} = useSelector( state => state.auth );
+
 
   // const [quantity, setQuantity] = useState("");
   const { form, handleChange }  = useForm({
@@ -16,9 +23,11 @@ export const CryptoAsset = ( {asset} ) => {
     quantity: ""
   })
 
+
   useEffect(() => {
     setPortfolioAsset({
       id: asset.id,
+      userId: user.id,
       name: asset.name,
       price: asset.price,
       symbol: asset.symbol,
@@ -30,10 +39,30 @@ export const CryptoAsset = ( {asset} ) => {
   
 
 
-  const submit = (e) => {
-      e.preventDefault();      
+  const submit = async(e) => {
+      e.preventDefault();
+      
+      try {
 
-    console.log( portfolioAsset );      
+        const { data } = await dbApi.post("/main/add", portfolioAsset);
+
+        
+        Swal.fire({
+          icon: 'success',
+          title: data.asset.name,
+          text: "Added to portfolio",
+          timer: 1500
+        })
+        
+      } catch (error) {
+        console.log(error);
+
+        Swal.fire({
+          icon: 'error',
+          title: error.response.data.message,
+        })
+      }
+
  }
  
   let price = 0;

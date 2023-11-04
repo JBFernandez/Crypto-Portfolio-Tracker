@@ -6,16 +6,24 @@ const router = Router();
 router.post('/add', async( req, resp ) => {
 
     try {
-        let asset = await CryptoAsset.findOne({ id: req.body.id });
 
-        if (asset) {
+             
+        
+        let assets = await CryptoAsset.find({ userId: req.body.userId });
+
+        let result = [];
+
+        result = assets.filter( ass => ass.id == req.body.id );
+
+
+        if ( Object.keys(result).length > 0 ) {
             return resp.status(400).json({
                 ok: false,
                 message: "You already have this asset in your portfolio, edit in Portfolio tab"
             })
         }
 
-        asset = new CryptoAsset( req.body );
+        let asset = new CryptoAsset( req.body );
 
         await asset.save();
 
