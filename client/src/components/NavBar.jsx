@@ -27,7 +27,7 @@ export const NavBar = () => {
                   <a id='portfolio' onClick={navBarClick}  className="nav-link active" aria-current="page"> Porfolio </a>
                 </li>
                 <li className="nav-item">
-                <a id='login' onClick={navBarClick} className="nav-link active" aria-current="page"> Somewhere </a>
+                <a id='main' onClick={navBarClick} className="nav-link active" aria-current="page"> Main Page </a>
                 </li>
                 <li className="nav-item">
                 <a id='login' onClick={navBarClick} className="nav-link active" aria-current="page"> logout </a>

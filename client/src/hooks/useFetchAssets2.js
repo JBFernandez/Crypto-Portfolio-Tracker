@@ -18,7 +18,7 @@ export const useFetchAssets = (load) => {
             });
 
 
-        const assets = data.data.map( coin => {
+        const assetsCMC = data.data.map( coin => {
 
             return {
                 number: coin.cmc_rank,
@@ -28,7 +28,7 @@ export const useFetchAssets = (load) => {
                 price: coin.quote.USD.price,
             }
         } );
-        return assets;
+        return assetsCMC;
         } catch (error) {
         }
     }
