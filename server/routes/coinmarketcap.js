@@ -37,5 +37,49 @@ router.post('/', ( req, resp ) => {
     
 } )
 
+router.post( '/prices', ( req, resp ) => {
+
+    const assetPrices = new Promise(async (resolve, reject) => {
+        let response = null;
+        let assetsInfo = req.body;
+
+        let assets = assetsInfo.map( (asset) => {
+            return asset.symbol            
+        } );
+
+        console.log(assets.toString());
+
+        try {
+            response = await axios.get(`https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=${assets.toString()}`, {
+            headers: {
+                'X-CMC_PRO_API_KEY': process.env.APIKEY,
+            },
+            });
+        } catch(ex) {
+            response = null;
+            // error
+            console.log("aqui");
+            reject(ex);
+        }
+        if (response) {
+            // success
+            // const json = response.data;
+            // console.log(json);
+            // resolve(json);
+            resolve(response.data);
+        }
+        });    
+
+    assetPrices.then( (data) => 
+    resp.json({
+        data: data.data
+    }) ).catch( (err) => {
+        resp.status(400).json( err )
+    } );
+
+
+
+} )
+
 
 module.exports = router;

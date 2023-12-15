@@ -25,7 +25,8 @@ export const useFetchDB = (load) => {
 
             const assetSymbol = result.data.result.map( (asset) => {
                 return {
-                    symbol: asset.symbol
+                    symbol: asset.symbol,
+                    quantity: asset.quantity.$numberDecimal
                 }
             } )
 
