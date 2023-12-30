@@ -39,17 +39,27 @@ router.post('/', ( req, resp ) => {
 
 router.post( '/prices', ( req, resp ) => {
 
+
     const assetPrices = new Promise(async (resolve, reject) => {
         let response = null;
         let assetsInfo = req.body;
 
-        let assets = assetsInfo.map( (asset) => {
-            return asset.symbol            
-        } );
+        // let assetsInfo = [];
 
-        console.log(assets.toString());
+        // if (  JSON.stringify(req.body) === '{}' ) {
+        //     return
+        // } else {
+        //     assetsInfo = req.body
+        // }
+
+        console.log( assetsInfo );
 
         try {
+
+            let assets = assetsInfo.map( (asset) => {
+                return asset.symbol            
+            } );
+
             response = await axios.get(`https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=${assets.toString()}`, {
             headers: {
                 'X-CMC_PRO_API_KEY': process.env.APIKEY,
@@ -58,14 +68,10 @@ router.post( '/prices', ( req, resp ) => {
         } catch(ex) {
             response = null;
             // error
-            console.log("aqui");
             reject(ex);
         }
         if (response) {
             // success
-            // const json = response.data;
-            // console.log(json);
-            // resolve(json);
             resolve(response.data);
         }
         });    
@@ -74,6 +80,7 @@ router.post( '/prices', ( req, resp ) => {
     resp.json({
         data: data.data
     }) ).catch( (err) => {
+        console.log(err);
         resp.status(400).json( err )
     } );
 

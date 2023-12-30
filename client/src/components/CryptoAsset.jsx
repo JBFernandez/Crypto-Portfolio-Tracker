@@ -72,11 +72,11 @@ export const CryptoAsset = ( {asset} ) => {
   return (
     <>
         <ul className="list-group list-group-horizontal justify-content-md-center"  >
-          <li className="list-group-item col-2"> { asset.number } </li>
-          <li className="list-group-item col-2"> { asset.name } </li>
-          <li className="list-group-item col-2">$ { price } </li>
-          <li className="list-group-item col-2"> <input type="text" name="quantity" onChange={handleChange}  /> </li>
-          <li className="list-group-item col-2"> <button onClick={ submit } > ADD </button> </li>
+          <li className="list-group-item col-1"> { asset.number } </li>
+          <li className="list-group-item col-3"> { asset.name } </li>
+          <li className="list-group-item col-3">$ { price } </li>
+          <li className="list-group-item col-2"> <input className='form-control me-2' type="text" name="quantity" onChange={handleChange}  /> </li>
+          <li className="list-group-item col-1"> <button className='btn btn-primary' onClick={ submit } > ADD </button> </li>
         </ul>
     </>
   )

@@ -1,17 +1,28 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import "./navBar.css";
+import { useAssestsDbStore } from '../hooks/useAssetsDbStore';
 
 export const NavBar = () => {
-
+  
+  const { startLoadingAssets, coins, loading } = useAssestsDbStore();
   const navigate = useNavigate();
 
-  const navBarClick = (e) => {
+  const navBarClick = async(e) => {
       e.preventDefault();
-
+      
       navigate(`/${e.target.id}`);      
 
   }
+
+  const portfolioClick = async(e) => {
+    e.preventDefault();
+    
+    await startLoadingAssets();
+
+    navigate(`/${e.target.id}`);      
+
+}
 
   return (
     <>
@@ -24,7 +35,7 @@ export const NavBar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a id='portfolio' onClick={navBarClick}  className="nav-link active" aria-current="page"> Porfolio </a>
+                  <a id='portfolio' onClick={portfolioClick}  className="nav-link active" aria-current="page"> Porfolio </a>
                 </li>
                 <li className="nav-item">
                 <a id='main' onClick={navBarClick} className="nav-link active" aria-current="page"> Main Page </a>

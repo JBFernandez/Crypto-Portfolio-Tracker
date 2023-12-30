@@ -66,12 +66,29 @@ router.post("/portfolio", async( req, resp ) => {
         })
         
     }
+} )
 
+router.post("/portfolio/delete", async( req, resp ) => {
 
+    try {
+        
+        await CryptoAsset.deleteOne({ userId: req.body.userId,  });
 
-    
+        resp.status(200).json({
+            ok: true,
+            result
+    })
 
+        
+    } catch (error) {
 
+        console.log(error);
+        resp.status(400).json({
+            ok: false,
+            error
+        })
+        
+    }
 } )
 
 

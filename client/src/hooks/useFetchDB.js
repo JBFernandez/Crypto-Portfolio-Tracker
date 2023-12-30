@@ -30,12 +30,10 @@ export const useFetchDB = (load) => {
                 }
             } )
 
-            console.log(assetSymbol);
-
             return assetSymbol;
             
         } catch (error) {
-
+            console.log(error);
         }      
         
     }    
@@ -48,6 +46,7 @@ export const useFetchDB = (load) => {
                 loading: false,
                 data: resp
             })
+
 
         } ).catch( error => {
             console.log(error);
