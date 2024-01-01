@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from '../hooks/useForm'
-import { useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { dbApi } from '../helpers/dbApi';
 import Swal from "sweetalert2";
+import { onDeleteAsset } from '../store/assetSlice';
+import { useAssestsDbStore } from '../hooks/useAssetsDbStore';
 
 
 export const CryptoPortfolioCoin = ( {coin} ) => {
 
+  const { startDeletingAsset, coins } =  useAssestsDbStore();
 
-  const clickDelete = (e) => {
+  const { user } = useSelector( state => state.auth );
+
+  const dispatch = useDispatch();
+
+
+  const clickDelete = async(e) => {
     e.preventDefault();
 
-    console.log( 'lo borrraste' );
+    await startDeletingAsset( coin );     
+
       
   }
+  
   
 
 

@@ -29,6 +29,14 @@ export const assetSlice = createSlice({
                 }
             } )
         },
+
+        onDeleteAsset: ( state,  {payload}  ) => {
+            state.loading = false;
+            state.coins = state.coins.filter( (coin) => coin.symbol !== payload  )
+            
+        }
+
+
     
         // onLogout: ( state, { payload } ) => {
         //     state.status = 'not-authenticated';
@@ -43,4 +51,4 @@ export const assetSlice = createSlice({
     }
   })
 
-  export const { onCheckingAsset, onLoadAssets, onAddprice } = assetSlice.actions;
+  export const { onCheckingAsset, onLoadAssets, onAddprice, onDeleteAsset } = assetSlice.actions;

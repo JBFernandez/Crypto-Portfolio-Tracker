@@ -4,7 +4,7 @@ import { OnChecking, onLogin, onLogout } from "../store/authSlice";
 import { dbApi } from "../helpers/dbApi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { onAddprice, onCheckingAsset, onLoadAssets } from "../store/assetSlice";
+import { onAddprice, onCheckingAsset, onDeleteAsset, onLoadAssets } from "../store/assetSlice";
 
 export const useAssestsDbStore = () => {
 
@@ -45,6 +45,25 @@ export const useAssestsDbStore = () => {
 
 
         dispatch( onAddprice( prices ) );        
+
+    }
+
+    const startDeletingAsset = async( coin ) => {
+
+        dispatch( onCheckingAsset() );
+
+
+        try {
+      
+            const { data } = await dbApi.post("/main/portfolio/delete", { userId: user.id, symbol: coin.symbol } )
+      
+            dispatch( onDeleteAsset( coin.symbol ) )
+      
+            
+          } catch (error) {
+            console.log(error);
+            
+          }     
 
     }
 
@@ -102,6 +121,7 @@ export const useAssestsDbStore = () => {
         //funciones
         startLoadingAssets,
         startAddPrice,
+        startDeletingAsset
     }
 
 }

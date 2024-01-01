@@ -8,11 +8,8 @@ import { TableHeader } from '../components/tableHeader';
 
 export const MainPage = () => {
 
-
   
   const assets = useFetchAssets(1);
-
-  console.log( assets );
 
 
   const coinMarketCap = (e) => {

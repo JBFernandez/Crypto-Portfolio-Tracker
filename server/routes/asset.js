@@ -72,7 +72,8 @@ router.post("/portfolio/delete", async( req, resp ) => {
 
     try {
         
-        await CryptoAsset.deleteOne({ userId: req.body.userId,  });
+        const result = await CryptoAsset.deleteOne({ userId: req.body.userId, symbol: req.body.symbol });
+        console.log(result);
 
         resp.status(200).json({
             ok: true,
